@@ -30,13 +30,67 @@ $(document).ready(() => {
 
     });
 
+    $('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav'
+    });
+    $('.slider-nav').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        centerMode: true,
+        focusOnSelect: true
+    });
+
     /**
      * HAMBURGER
      */
-    $('.menu-toggle-inner').on('click', () => {
-        $('.adaptive-menu-toggle').toggleClass('adaptive-menu-toggle--open');
-        $('.headerNav_adaptive').toggleClass('header_opened');
+    $('#burger_button').on('click', (event) => {
+        $('#burger_button').toggleClass('active');
+        $('.headerNav_adaptive').toggleClass('active');
+        // $('.headerNav_adaptive').toggleClass('header_opened');
     });
+
+    /**
+     * SEARCH
+     */
+    $('.header__nav__search').on('click', (event) => {
+        $('#title-search').toggleClass('active');
+    });
+
+    /**
+     * CATEGORIES
+     */
+    $('#open-categories').on('click', (event) => {
+        $('.catalog__categories').toggleClass('active');
+    });
+
+    /**
+     * TABS
+     */
+    let tabButtons = document.querySelectorAll('.tab-btn');
+    let contentTabs = document.querySelectorAll('.tab-text__block');
+
+    tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+            const path = event.currentTarget.dataset.path;
+
+            for (let tab of tabButtons) {
+                tab.classList.remove('active')
+            }
+            event.currentTarget.classList.add('active');
+
+            contentTabs.forEach(function (tab) {
+                tab.classList.remove('active');
+            })
+            document.querySelector(`[data-target=${path}]`).classList.add('active');
+        })
+    });
+
 
     /**
      * FANCYBOX
